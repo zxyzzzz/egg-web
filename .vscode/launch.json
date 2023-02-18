@@ -1,0 +1,16 @@
+{
+    "configurations": [
+      {
+        "name": "Launch Egg",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [ "run", "debug" ],
+        "console": "integratedTerminal",
+        "restart": true,
+        "autoAttachChildProcesses": true
+      }
+    ]
+}
+  
