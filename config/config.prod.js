@@ -20,13 +20,13 @@ module.exports = appInfo => {
     // 单数据库信息配置
     client: {
       // host
-      host: 'mysql.com',
+      host: '127.0.0.1',
       // 端口号
       port: '3306',
       // 用户名
-      user: 'test_user',
+      user: 'admin',
       // 密码
-      password: 'test_password',
+      password: '123456',
       // 数据库名
       database: 'test',
     },
