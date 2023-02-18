@@ -1,46 +1,61 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
+name: build egg js
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - main
-      - master
-  schedule:
-    - cron: '0 2 * * *'
+    branches: [ "master" ]
+env:
+  SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }} # 服务器私钥
+  SERVER_HOST: ${{ secrets.SERVER_HOST }} # 服务器IP地址
+  USER_NAME: ${{ secrets.USER_NAME }} # 服务器用户名
+  cache-name: note
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
       matrix:
-        node-version: [16, 18]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
+        node-version: [18.x]
     steps:
-    - name: Checkout Git Source
-      uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Install Dependencies
-      run: npm i
-
-    - name: Continuous Integration
-      run: npm run ci
-
-    - name: Code Coverage
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: ls
+        run: |
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
+      - name: npm install
+        run: |
+          npm install
+        working-directory: ${{github.workspace}}
+      - name: npm run build
+        run: |
+          npm run build
+        working-directory: ${{github.workspace}}
+      # - name: commit push
+      #   #执行执行某个shell命令或脚本
+      #   run: |
+      #     git config --global user.email 443135581@qq.com
+      #     git config --global user.name diaoxr
+      #     git add .
+      #     git commit -m "update"
+      #     git push
+      - name: Deploy
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ env.SERVER_PRIVATE_KEY }}
+          ARGS: '-avz --delete'
+          SOURCE: './'
+          REMOTE_HOST: ${{ env.SERVER_HOST }}
+          REMOTE_USER: ${{ env.USER_NAME }}
+          TARGET: /root/egg-web # 服务器目标路径
+      
+      # - name: ssh exec shell
+      #   uses: garygrossgarten/github-action-ssh@release
+      #   with:
+      #     command: sh /root/node-test/server.sh
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: root
+      #     port: 22
+      #     privateKey: ${{ secrets.SERVER_PRIVATE_KEY}}
