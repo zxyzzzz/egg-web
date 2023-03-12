@@ -1,4 +1,4 @@
-name: node server
+name: 发布二手交换平台后端工程
 
 on:
   push:
