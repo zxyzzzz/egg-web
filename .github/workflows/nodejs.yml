@@ -1,4 +1,4 @@
-name: build vite vue app
+name: node server
 
 on:
   push:
