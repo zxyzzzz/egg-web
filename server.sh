@@ -1,4 +1,4 @@
 #!/bin/bash
-echo ---------------- `pwd`
+cd /root/egg-web
 npm run stop
 npm run start
