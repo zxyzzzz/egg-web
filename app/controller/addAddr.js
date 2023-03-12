@@ -13,10 +13,6 @@ class AddAddrController extends Controller {
         const { ctx, app } = this;
         console.log(ctx.request.body)
         let {consignee,user_no,province,city,area,detail_addr,tel} = ctx.request.body;
-        // let sql = 'SELECT * FROM user_addr WHERE `user_no`=? ';
-        // let data = await app.mysql.query(sql, [user_no]);
-        // let res=await app.mysql.insert(data,[consignee,province,city,area,detail_addr,tel])
-        // let {consignee,province,city,area,detail_addr,tel} = ctx.request.body;
         let data = 'INSERT INTO user_addr (`consignee`,`user_no`,`province`,`city`,`area`,`detail_addr`,`tel`) VALUES(?,?,?,?,?,?,?)  '
         let res = await app.mysql.query(data, [consignee,user_no,province,city,area,detail_addr,tel]);
         ctx.body = Result.success("成功", res);

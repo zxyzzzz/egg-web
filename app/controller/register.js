@@ -12,8 +12,8 @@ class RegisterController extends Controller {
         //   let data = await app.mysql.query("SELECT * FROM user_tb", []);
         //   ctx.body = Result.success("成功",data);
         let {user_name,user_no,password,tel} = ctx.request.body;
-        let insertImp = 'INSERT INTO user_tb (`user_name`,`user_no`,`password`,`tel`,`user_type`) VALUES(?,?,?,?,?)'
-        let res = await app.mysql.query(insertImp, [user_name,user_no,password,tel,'1']);
+        let insertImp = 'INSERT INTO user_tb (`user_name`,`user_no`,`password`,`tel`,`user_type`,`head_img_url`) VALUES(?,?,?,?,?,?)'
+        let res = await app.mysql.query(insertImp, [user_name,user_no,password,tel,'1','user/info/touxiang.jpg']);
         ctx.body = Result.success("成功", res);
     }
 }

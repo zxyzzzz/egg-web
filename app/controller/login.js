@@ -20,6 +20,12 @@ class LoginController extends Controller {
       ctx.body = Result.success("登录成功",[])
     }
   }
+  async logout(){
+    const {ctx,app} = this;
+    let {user_no,password} = ctx.request.body;
+    ctx.session.user_no = null;
+    ctx.body = Result.success("退出",[])
+  }
  
 }
 
