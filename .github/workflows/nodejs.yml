@@ -19,7 +19,7 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - name: Checkout
+      - name: 切换工程分支
         uses: actions/checkout@main
 
       - name: 拷贝资源到服务器
@@ -32,7 +32,7 @@ jobs:
           REMOTE_USER: ${{ env.USER_NAME }}
           TARGET: /root/egg-web # 服务器目标路径
 
-      - name: 启动node服务
+      - name: 重启node服务
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: sh /root/egg-web/server.sh
