@@ -1,1 +1,4 @@
-echo "执行成功。。。。。。。123456"
+#!/bin/sh
+
+npm run stop
+npm run start

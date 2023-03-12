@@ -20,31 +20,9 @@ jobs:
         node-version: [18.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@master
-      # - name: ls
-      #   run: |
-      #     echo ${{ github.workspace }}
-      #     echo $GITHUB_WORKSPACE
-      # - name: npm install
-      #   run: |
-      #     npm install
-      #   working-directory: ${{github.workspace}}
-      # - name: npm run build
-      #   run: |
-      #     npm run build
-      #   working-directory: ${{github.workspace}}
-      # - name: commit push
-      #   #执行执行某个shell命令或脚本
-      #   run: |
-      #     git config --global user.email 443135581@qq.com
-      #     git config --global user.name diaoxr
-      #     git add .
-      #     git commit -m "update"
-      #     git push
-      # - name: 执行额外脚本111223
-      #   run: |
-      #     sh test.sh
-      - name: Deploy
+        uses: actions/checkout@main
+
+      - name: 拷贝资源到服务器
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ env.SERVER_PRIVATE_KEY }}
@@ -54,7 +32,7 @@ jobs:
           REMOTE_USER: ${{ env.USER_NAME }}
           TARGET: /root/egg-web # 服务器目标路径
 
-      - name: ssh exec shell
+      - name: 启动node服务
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: sh /root/egg-web/server.sh
