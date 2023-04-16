@@ -41,17 +41,24 @@ class OrderController extends Controller {
     // let sql = 'SELECT * FROM goods WHERE `id`=? ';
     // let res = await app.mysql.query(sql, [id]);
   
-    let data = 'UPDATE order_info SET `order_status`=1 WHERE `id`=? ';
+    let data = 'UPDATE order_info SET `order_status`=2 WHERE `id`=? ';
     
     let result = await app.mysql.query(data,[id]);
     ctx.body =  Result.success("编辑成功",result);   
 
   }
+  async query_notpay(){
+    const { ctx, app } = this;
+    let { user_no } = ctx.request.body;
+    let data="SELECT A.*,B.goods_name,B.goods_price, B.goods_type,B.goods_detail,B.goods_img_url FROM order_info A LEFT JOIN goods B ON A.goods_id = B.id WHERE A.user_no = ? and A.order_status='0' ";
+    let res = await app.mysql.query(data, [user_no]);
+    ctx.body = Result.success("查询成功", res);
+  }
 
     async query_notreceive(){
       const { ctx, app } = this;
       let { user_no } = ctx.request.body;
-      let data="SELECT A.*,B.goods_name,B.goods_price, B.goods_type,B.goods_detail,B.goods_img_url FROM order_info A LEFT JOIN goods B ON A.goods_id = B.id WHERE A.user_no = ? and A.order_status='0' ";
+      let data="SELECT A.*,B.goods_name,B.goods_price, B.goods_type,B.goods_detail,B.goods_img_url FROM order_info A LEFT JOIN goods B ON A.goods_id = B.id WHERE A.user_no = ? and A.order_status='1' ";
       let res = await app.mysql.query(data, [user_no]);
       ctx.body = Result.success("查询成功", res);
     }
@@ -59,7 +66,7 @@ class OrderController extends Controller {
     async query_received(){
       const { ctx, app } = this;
       let { user_no } = ctx.request.body;
-      let data="SELECT A.*,B.goods_name,B.goods_price, B.goods_type,B.goods_detail,B.goods_img_url FROM order_info A LEFT JOIN goods B ON A.goods_id = B.id WHERE A.user_no = ? and A.order_status='1' ";
+      let data="SELECT A.*,B.goods_name,B.goods_price, B.goods_type,B.goods_detail,B.goods_img_url FROM order_info A LEFT JOIN goods B ON A.goods_id = B.id WHERE A.user_no = ? and A.order_status='2' ";
       let res = await app.mysql.query(data, [user_no]);
       ctx.body = Result.success("查询成功", res);
     }

@@ -31,6 +31,7 @@ module.exports = app => {
   router.post('/add-order', controller.order.add);
   router.post('/query-order', controller.order.query);
   router.post('/query-notreceive_order', controller.order.query_notreceive);
+  router.post('/query-notpay_order', controller.order.query_notpay);
   router.post('/query-received_order', controller.order.query_received);
   router.post('/query-allorder', controller.order.queryall);
   router.post('/search-order', controller.order.search);
@@ -46,6 +47,7 @@ module.exports = app => {
   router.post('/query-apl', controller.apl.query);
   router.post('/pass-apl', controller.apl.pass);
   router.post('/reject-apl', controller.apl.reject);
+  router.post('/add-pay-apl', controller.payApl.add);
   router.post('/query-shoppingcart', controller.shoppingcart.query);
   router.post('/add-shoppingcart', controller.shoppingcart.add);
   router.post('/delete-shoppingcart', controller.shoppingcart.delete);
