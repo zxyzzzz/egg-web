@@ -48,6 +48,8 @@ module.exports = app => {
   router.post('/pass-apl', controller.apl.pass);
   router.post('/reject-apl', controller.apl.reject);
   router.post('/add-pay-apl', controller.payApl.add);
+  router.post('/query-pay-apl', controller.payApl.query);
+  router.post('/pass-pay-apl', controller.payApl.pass);
   router.post('/query-shoppingcart', controller.shoppingcart.query);
   router.post('/add-shoppingcart', controller.shoppingcart.add);
   router.post('/delete-shoppingcart', controller.shoppingcart.delete);
